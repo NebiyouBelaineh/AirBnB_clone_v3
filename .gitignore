@@ -1,5 +1,6 @@
 file.json
 test_get_count.py
+flask/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
