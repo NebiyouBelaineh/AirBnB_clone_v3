@@ -84,7 +84,6 @@ class FileStorage:
         """Returns the number of objects in storage matching the given class.
         If no class is passed, returns the count of all objects in storage."""
         from models import storage
-        num_obj = 0
         if cls:
             all_obj = storage.all(cls)
         else:
