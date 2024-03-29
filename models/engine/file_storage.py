@@ -83,7 +83,10 @@ class FileStorage:
         If no class is passed, returns the count of all objects in storage."""
 
         if cls is not None:
-            all_obj = self.all(cls)
+            for clss in classes:
+                if cls is classes.get(clss, None) or cls is clss:
+                    all_obj = self.all(classes[clss])
+                    break
         else:
             all_obj = self.all()
         return len(all_obj)
