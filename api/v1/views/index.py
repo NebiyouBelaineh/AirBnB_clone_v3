@@ -14,7 +14,6 @@ classes = {"amenities": Amenity, "cities": City,
            "places": Place, "reviews": Review, "states": State, "users": User}
 
 
-
 @app_views.route('/status')
 def status():
     """show status as a json"""
@@ -29,4 +28,3 @@ def stats():
     for key, values in classes.items():
         obj[key] = storage.count(values)
     return jsonify(obj)
-    
