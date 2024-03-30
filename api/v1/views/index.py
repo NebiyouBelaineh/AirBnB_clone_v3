@@ -5,14 +5,14 @@ from flask import jsonify
 from models import storage
 
 
-@app_views.route('/status', strict_slashes=False)
+@app_views.route('/status')
 def hbnb_status():
     """show status as a json"""
     status = jsonify(status="OK")
     return status
 
 
-@app_views.route('/stats', strict_slashes=False)
+@app_views.route('/stats')
 def hbnb_stats():
     """Returns the number of each objects by type"""
     classes = {"amenities": 'Amenity',
