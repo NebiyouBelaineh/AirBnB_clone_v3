@@ -68,8 +68,6 @@ def update_amenity(amenity_id):
     req_data = request.get_json()
     if req_data is None:
         raise BadRequest(description="Not a JSON")
-    if req_data.get("name", None) is None:
-        raise BadRequest(description="Missing name")
     keys_ignore = ["id", "created_at", "updated_at"]
     for key, value in req_data.items():
         if key not in keys_ignore:
