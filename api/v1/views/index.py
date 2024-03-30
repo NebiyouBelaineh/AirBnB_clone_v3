@@ -8,7 +8,7 @@ from models import storage
 @app_views.route('/status', strict_slashes=False)
 def hbnb_status():
     """show status as a json"""
-    status = jsonify({"status": "OK"})
+    status = jsonify(status="OK")
     return status
 
 
