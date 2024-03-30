@@ -63,8 +63,7 @@ def create_place(city_id):
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
 
-    name = req_data.get("name")
-    place = Place(city_id=city_id, user_id=user_id, name=name)
+    place = Place(**req_data)
     place.save()
     return jsonify(place.to_dict()), 201
 

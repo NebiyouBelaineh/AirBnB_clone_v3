@@ -49,8 +49,8 @@ def create_state():
         raise BadRequest(description="Not a JSON")
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
-    name = req_data.get("name")
-    state = State(name=name)
+
+    state = State(**req_data)
     state.save()
     return jsonify(state.to_dict()), 201
 

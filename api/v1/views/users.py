@@ -51,9 +51,8 @@ def create_user():
         raise BadRequest(description="Missing email")
     if req_data.get("password", None) is None:
         raise BadRequest(description="Missing password")
-    email = req_data.get("email")
-    password = req_data.get("password")
-    user = User(email=email, password=password)
+
+    user = User(**req_data)
     user.save()
     return jsonify(user.to_dict()), 201
 

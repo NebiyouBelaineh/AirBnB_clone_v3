@@ -53,8 +53,8 @@ def create_city(state_id):
         raise BadRequest(description="Not a JSON")
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
-    name = req_data.get("name")
-    city = City(name=name, state_id=state_id)
+
+    city = City(**req_data)
     city.save()
     return jsonify(city.to_dict()), 201
 

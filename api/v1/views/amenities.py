@@ -49,7 +49,7 @@ def create_amenity():
         raise BadRequest(description="Not a JSON")
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
-    name = req_data.get("name")
+
     amenity = Amenity(**req_data)
     amenity.save()
     return jsonify(amenity.to_dict()), 201
