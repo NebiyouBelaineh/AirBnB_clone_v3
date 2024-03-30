@@ -15,7 +15,8 @@ def get_states():
     return jsonify(states_list)
 
 
-@app_views.route('/states/<string:state_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/states/<string:state_id>',
+                 strict_slashes=False, methods=['GET'])
 def get_state(state_id):
     """get states as a json"""
     state = storage.get("State", state_id)
@@ -23,7 +24,9 @@ def get_state(state_id):
         abort(404)
     return jsonify(state.to_dict())
 
-@app_views.route('/states/<string:state_id>', strict_slashes=False, methods=['DELETE'])
+
+@app_views.route('/states/<string:state_id>',
+                 strict_slashes=False, methods=['DELETE'])
 def delete_state(state_id):
     """delete states as a json"""
     state = storage.get("State", state_id)
@@ -32,4 +35,3 @@ def delete_state(state_id):
     state.delete()
     storage.save()
     return jsonify({}), 200
-
