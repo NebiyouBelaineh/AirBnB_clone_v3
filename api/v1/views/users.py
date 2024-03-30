@@ -4,7 +4,6 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from werkzeug.exceptions import BadRequest
-from models.user import User
 
 
 @app_views.route('/users', methods=['GET'],
@@ -44,6 +43,7 @@ def delete_user(user_id):
                  strict_slashes=False)
 def create_user():
     """create users as a json"""
+    from models.user import User
     req_data = request.get_json()
     if req_data is None:
         raise BadRequest(description="Not a JSON")
@@ -61,6 +61,7 @@ def create_user():
                  strict_slashes=False)
 def update_user(user_id):
     """create users as a json"""
+    from models.user import User
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
