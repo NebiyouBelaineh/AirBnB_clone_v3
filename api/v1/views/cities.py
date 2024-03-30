@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from werkzeug.exceptions import BadRequest
+from models.city import City
 
 
 @app_views.route('/states/<string:state_id>/cities', methods=['GET'])
@@ -39,8 +40,6 @@ def delete_city(city_id):
 @app_views.route('/states/<string:state_id>/cities', methods=['POST'])
 def create_city(state_id):
     """create cities as a json"""
-    from models.state import State
-    from models.city import City
     states = storage.all("State")
     state_found = None
     for state in states.values():
@@ -63,7 +62,6 @@ def create_city(state_id):
 @app_views.route('/cities/<string:city_id>', methods=['PUT'])
 def update_city(city_id):
     """update city as a json"""
-    from models.city import City
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
