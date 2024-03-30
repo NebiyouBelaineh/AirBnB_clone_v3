@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from werkzeug.exceptions import BadRequest
+from models.place import Place
 
 
 @app_views.route('/cities/<string:city_id>/places', methods=['GET'],
@@ -43,7 +44,6 @@ def delete_place(place_id):
                  strict_slashes=False)
 def create_place(city_id):
     """create places as a json"""
-    from models.place import Place
 
     city = storage.get("City", city_id)
     if city is None:
@@ -63,7 +63,8 @@ def create_place(city_id):
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
 
-    place = Place(**req_data)
+    name = req_data.get("name")
+    place = Place(city_id=city_id, user_id=user_id, name=name)
     place.save()
     return jsonify(place.to_dict()), 201
 
@@ -72,7 +73,6 @@ def create_place(city_id):
                  strict_slashes=False)
 def update_place(place_id):
     """create places as a json"""
-    from models.place import Place
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)

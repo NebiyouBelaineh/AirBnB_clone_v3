@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from werkzeug.exceptions import BadRequest
+from models.state import State
 
 
 @app_views.route('/states', methods=['GET'],
@@ -43,14 +44,13 @@ def delete_state(state_id):
                  strict_slashes=False)
 def create_state():
     """create states as a json"""
-    from models.state import State
     req_data = request.get_json()
     if req_data is None:
         raise BadRequest(description="Not a JSON")
     if req_data.get("name", None) is None:
         raise BadRequest(description="Missing name")
-
-    state = State(**req_data)
+    name = req_data.get("name")
+    state = State(name=name)
     state.save()
     return jsonify(state.to_dict()), 201
 
@@ -59,7 +59,6 @@ def create_state():
                  strict_slashes=False)
 def update_state(state_id):
     """create states as a json"""
-    from models.state import State
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
