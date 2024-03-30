@@ -52,3 +52,24 @@ def create_state():
     state = State(name=name)
     state.save()
     return jsonify(state.to_dict()), 201
+
+
+@app_views.route('/states/<string:state_id>',
+                 strict_slashes=False, methods=['PUT'])
+def update_state(state_id):
+    """create states as a json"""
+    from models.state import State
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    req_data = request.get_json()
+    if req_data is None:
+        raise BadRequest(description="Not a JSON")
+    if req_data.get("name", None) is None:
+        raise BadRequest(description="Missing name")
+    keys_ignore = ["id", "created_at", "updated_at"]
+    for key, value in req_data.items():
+        if key not in keys_ignore:
+            setattr(state, key, value)
+    state.save()
+    return jsonify(state.to_dict()), 200
