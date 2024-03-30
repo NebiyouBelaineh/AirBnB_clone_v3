@@ -79,17 +79,8 @@ class FileStorage:
         return None
 
     def count(self, cls=None):
-        """Returns the number of objects in self matching the given class.
-        If no class is passed, returns the count of all objects in storage."""
-
-        if cls is not None:
-            for clss in classes:
-                if cls is classes.get(clss, None) or cls is clss:
-                    all_obj = self.all(classes[clss])
-                    break
-        else:
-            all_obj = self.all()
-        return len(all_obj)
+        """Count the number of objects in storage"""
+        return len(self.all(cls))
 
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
