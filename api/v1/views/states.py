@@ -35,3 +35,15 @@ def delete_state(state_id):
     state.delete()
     storage.save()
     return jsonify({}), 200
+
+
+@app_views.route('/states',
+                 strict_slashes=False, methods=['POST'])
+def delete_state(state_id):
+    """delete states as a json"""
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+    state.delete()
+    storage.save()
+    return jsonify({}), 200
