@@ -39,7 +39,7 @@ def delete_state(state_id):
 
 @app_views.route('/states',
                  strict_slashes=False, methods=['POST'])
-def delete_state(state_id):
+def create_state(state_id):
     """delete states as a json"""
     state = storage.get("State", state_id)
     if state is None:
