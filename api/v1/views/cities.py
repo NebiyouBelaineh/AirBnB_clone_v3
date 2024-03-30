@@ -10,14 +10,10 @@ from werkzeug.exceptions import BadRequest
 def get_cities_by_state(state_id):
     """get cities as a json"""
     print("*******************\tInside cities and state_id is: ", state_id)
-    states = storage.all("State")
-    cities_list = []
-    for state in states.values():
-        if state.id == state_id:
-            for city in state.cities:
-                cities_list.append(city.to_dict())
-    if len(cities_list) == 0:
+    state = storage.get("State", state_id)
+    if state is None:
         abort(404)
+    cities_list = [city.to_dict() for city in state.cities]
     return jsonify(cities_list)
 
 

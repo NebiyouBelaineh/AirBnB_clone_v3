@@ -32,7 +32,6 @@ def get_user(user_id):
 def delete_user(user_id):
     """delete users as a json"""
     user = storage.get("User", user_id)
-    print(user)
     if user is None:
         abort(404)
     user.delete()
