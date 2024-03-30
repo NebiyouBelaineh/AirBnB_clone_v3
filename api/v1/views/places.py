@@ -10,7 +10,6 @@ from werkzeug.exceptions import BadRequest
                  strict_slashes=False)
 def get_place(city_id):
     """get places as a json"""
-    print("Inside get_place")
     city = storage.get("City", city_id)
     if city is None:
         abort(404)

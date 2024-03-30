@@ -9,7 +9,6 @@ from werkzeug.exceptions import BadRequest
 @app_views.route('/states/<string:state_id>/cities', methods=['GET'])
 def get_cities_by_state(state_id):
     """get cities as a json"""
-    print("*******************\tInside cities and state_id is: ", state_id)
     state = storage.get("State", state_id)
     if state is None:
         abort(404)

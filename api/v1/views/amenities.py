@@ -21,7 +21,6 @@ def get_amenities():
                  strict_slashes=False)
 def get_amenity(amenity_id):
     """get amenities as a json"""
-    # print("Inside get_amenity")
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
         abort(404)
@@ -33,7 +32,6 @@ def get_amenity(amenity_id):
 def delete_amenity(amenity_id):
     """delete amenities as a json"""
     amenity = storage.get("Amenity", amenity_id)
-    print(amenity)
     if amenity is None:
         abort(404)
     amenity.delete()
