@@ -12,7 +12,9 @@ from models.amenity import Amenity
 def get_amenities():
     """get amenities as a json"""
     amenities = storage.all("Amenity")
-    amenities_list = [amenity.to_dict() for amenity in amenities.values()]
+    amenities_list = []
+    for amenity in amenities.values():
+        amenities_list.append(amenity.to_dict())
     return jsonify(amenities_list)
 
 
