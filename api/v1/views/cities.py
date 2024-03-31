@@ -18,8 +18,8 @@ def get_cities_by_state(state_id):
 
 
 @app_views.route('/cities/<string:city_id>', methods=['GET'])
-def get_cities(city_id):
-    """get cities as a json"""
+def get_citie(city_id):
+    """get citie as a json"""
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
@@ -40,13 +40,8 @@ def delete_city(city_id):
 @app_views.route('/states/<string:state_id>/cities', methods=['POST'])
 def create_city(state_id):
     """create cities as a json"""
-    states = storage.all("State")
-    state_found = None
-    for state in states.values():
-        if state.id == state_id:
-            state_found = state
-            break
-    if state_found is None:
+    state = storage.get("State", state_id)
+    if state is None:
         abort(404)
     req_data = request.get_json()
     if req_data is None:
