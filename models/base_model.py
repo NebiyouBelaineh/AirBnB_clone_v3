@@ -11,6 +11,7 @@ from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
 
+
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
 if models.storage_t == "db":
@@ -69,6 +70,9 @@ class BaseModel:
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
 
+        # task 14
+        if models.storage_t != "db" and "password" in new_dict:
+            del new_dict["password"]
         return new_dict
 
     def delete(self):
