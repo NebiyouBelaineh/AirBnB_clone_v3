@@ -14,8 +14,7 @@ class User(BaseModel, Base):
     if models.storage_t == 'db':
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
-        # task 14 private value
-        _password = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
         places = relationship("Place", backref="user")
@@ -29,15 +28,3 @@ class User(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
-
-    # task 14
-    @property
-    def password(self):
-        """getter method for password"""
-        return self._password
-
-    @password.setter
-    def password(self, value):
-        """setter method for password"""
-        hashed_password = hashlib.md5(value.encode()).hexdigest()
-        self._password = hashed_password
