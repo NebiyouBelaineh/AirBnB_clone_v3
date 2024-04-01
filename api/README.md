@@ -45,4 +45,34 @@ $ curl -X GET http://0.0.0.0:5000/api/v1/stats
   "users": 31
 }
 ```
+### Not found
+- Whenever an unknown url is used to query for the API, an error message is show as the following:
+```
+$ curl -X GET http://0.0.0.0:5000/api/v1/nop
+{
+  "error": "Not found"
+}
+```
+- A handler is present in `api/v1/app.py` for `404` errors that returns a `JSON-formatted 404 status code` response.
+```
+$ curl -X GET http://0.0.0.0:5000/api/v1/nop -vvv
+*   Trying 0.0.0.0...
+* TCP_NODELAY set
+* Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
+> GET /api/v1/nop HTTP/1.1
+> Host: 0.0.0.0:5000
+> User-Agent: curl/7.51.0
+> Accept: */*
+> 
+* HTTP 1.0, assume close after body
+< HTTP/1.0 404 NOT FOUND
+< Content-Type: application/json
+< Content-Length: 27
+< Server: Werkzeug/0.12.1 Python/3.4.3
+< Date: Fri, 14 Apr 2017 23:43:24 GMT
+< 
+{
+  "error": "Not found"
+}
+```
  
