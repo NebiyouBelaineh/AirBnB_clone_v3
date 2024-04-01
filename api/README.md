@@ -276,3 +276,12 @@ $ curl -X GET http://0.0.0.0:5000/api/v1/nop -vvv
     "updated_at": "2017-04-16T03:15:13"
     }
     ```
+### Amenity
+- Creates a new view for Amenity objects that handles all default RESTFul API actions:
+    - Retrieves a Amenity object: `GET /api/v1/amenities/<amenity_id>`
+     
+    - Deletes a Amenity object:: `DELETE /api/v1/amenities/<amenity_id>`
+        
+    - Creates a Amenity: `POST /api/v1/amenities`
+        
+    - Updates a Amenity object: `PUT /api/v1/amenities/<amenity_id>`
