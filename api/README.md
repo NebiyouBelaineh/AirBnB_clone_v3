@@ -30,4 +30,19 @@ $ curl -X GET -s http://0.0.0.0:5000/api/v1/status -vvv 2>&1 | grep Content-Type
 - For this to work, we are using Blueprint class from Flask with `url_prefix='/api/v1'`
 - The configuration of the API Host and Port can be controlled using the environment variables `HBNB_API_HOST` and  `HBNB_API_PORT` respectively. The default value for `host` is `0.0.0.0` and `port` is `5000`.
 
+### Some Stats
+- The total count of each object that hold information about a certain place such as `Amenity`, `Place`, '`City`', `State`, `Review`, and `User`.
+- This is achieved using the `get` and `count` methods for each Object.
+- Here is an example:
+```
+$ curl -X GET http://0.0.0.0:5000/api/v1/stats
+{
+  "amenities": 47, 
+  "cities": 36, 
+  "places": 154, 
+  "reviews": 718, 
+  "states": 27, 
+  "users": 31
+}
+```
  
