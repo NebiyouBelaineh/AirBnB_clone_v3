@@ -40,5 +40,5 @@ class User(BaseModel, Base):
     @password.setter
     def password(self, value):
         """setter method for password"""
-        hashed_password = hashlib.md5(value.encode()).hexdigest()
+        hashed_password = hashlib.md5(value.encode('utf-8')).hexdigest()
         self._password = hashed_password
