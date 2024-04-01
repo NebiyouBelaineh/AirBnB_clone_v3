@@ -27,3 +27,7 @@
 $ curl -X GET -s http://0.0.0.0:5000/api/v1/status -vvv 2>&1 | grep Content-Type
 < Content-Type: application/json
 ```
+- For this to work, we are using Blueprint class from Flask with `url_prefix='/api/v1'`
+- The configuration of the API Host and Port can be controlled using the environment variables `HBNB_API_HOST` and  `HBNB_API_PORT` respectively. The default value for `host` is `0.0.0.0` and `port` is `5000`.
+
+ 
