@@ -85,3 +85,61 @@ def update_place(place_id):
             setattr(place, key, value)
     place.save()
     return jsonify(place.to_dict()), 200
+
+
+@app_views.route('/places_search', methods=['POST'],
+                 strict_slashes=False)
+def places_search():
+    """Searches for places based on json request body"""
+    req_data = request.get_json()
+    if req_data is None:
+        raise BadRequest(description="Not a JSON")
+
+    state_ids = req_data.get("states", None)
+    city_ids = req_data.get("cities", None)
+    amenity_ids = req_data.get("amenities", None)
+    places_list = []
+    p_states = []
+    p_cities = []
+
+    # Get all places in states
+    if state_ids is not None:
+        for state_id in state_ids:
+            current_state = storage.get("State", state_id)
+            for city in current_state.cities:
+                for place in city.places:
+                    if amenity_ids is None:
+                        p_states.append(place)
+                    else:
+                        for amenity_id in amenity_ids:
+                            for amnty in place.amenities:
+                                if amenity_id == amnty.id:
+                                    p_states.append(place)
+
+    # Get all places in cities that are not already included
+    if city_ids is not None:
+        for c_id in city_ids:
+            current_city = storage.get("City", c_id)
+            if current_city:
+                for place in current_city.places:
+                    if amenity_ids is None and place not in p_states:
+                        p_cities.append(place)
+                    else:
+                        for amenity_id in amenity_ids:
+                            for amnty in place.amenities:
+                                if (amenity_id
+                                    == amnty.id
+                                    and place
+                                    not in
+                                        p_states):
+                                    p_cities.append(place)
+    for place in p_states:
+        places_list.append(place.to_dict())
+    for place in p_cities:
+        places_list.append(place.to_dict())
+    # Delets amenities key that includes all amenities objects
+    for p in places_list:
+        if p.get('amenities'):
+            del p['amenities']
+
+    return jsonify(places_list), 200
